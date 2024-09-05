@@ -1,17 +1,39 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <VTable 
+      :usersList="usersList" 
+      :headers="headers" 
+      :limit="5">
+    </VTable>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import VTable from './components/v-table.vue';
+import { useUsers } from './assets/users';
+import { ref } from 'vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    VTable
+  },
+  setup() {
+    const usersList = ref('')
+    usersList.value = useUsers();
+    const headers = ref([
+      'Id',
+      'Фио',
+      'Отдел',
+      'ЗП',
+      'Должность',
+      'День рождения',
+    ]);
+
+    return {
+      usersList,
+      headers
+    }
   }
 }
 </script>
@@ -24,5 +46,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  display: flex;
+  justify-content: center;
 }
 </style>
